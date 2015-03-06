@@ -10,10 +10,10 @@ class Xhprof
         $buffer .= '<thead>' . PHP_EOL;
         $buffer .= '<tr>' . PHP_EOL;
 
-        $buffer .= '<td data-sort="string">Call</td>';
-        $buffer .= '<td data-sort="int">Count</td>';
-        $buffer .= '<td data-sort="int">Time</td>';
-        $buffer .= '<td data-sort="int">Overall</td>';
+        $buffer .= '<th data-sort="string">Call</th>';
+        $buffer .= '<th data-sort="int">Count</th>';
+        $buffer .= '<th data-sort="int">Time</th>';
+        $buffer .= '<th data-sort="int">Overall</th>';
 
         $buffer .=  PHP_EOL . '</tr>' . PHP_EOL;
         $buffer .= '</thead>' . PHP_EOL;
