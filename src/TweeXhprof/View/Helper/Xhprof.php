@@ -6,14 +6,14 @@ class Xhprof
     public function __invoke(array $stack)
     {
         $buffer = '';
-        $buffer .= '<table class="table table-hover table-profiling">' . PHP_EOL;
+        $buffer .= '<table class="table table-hover table-profiling stupidtable">' . PHP_EOL;
         $buffer .= '<thead>' . PHP_EOL;
         $buffer .= '<tr>' . PHP_EOL;
 
-        $buffer .= '<td>Call</td>';
-        $buffer .= '<td>Count</td>';
-        $buffer .= '<td>Time</td>';
-        $buffer .= '<td>Overall</td>';
+        $buffer .= '<td data-sort="string">Call</td>';
+        $buffer .= '<td data-sort="int">Count</td>';
+        $buffer .= '<td data-sort="int">Time</td>';
+        $buffer .= '<td data-sort="int">Overall</td>';
 
         $buffer .=  PHP_EOL . '</tr>' . PHP_EOL;
         $buffer .= '</thead>' . PHP_EOL;
@@ -21,10 +21,10 @@ class Xhprof
         foreach ($stack as $call => $data) {
             $buffer .= ' <tr>' . PHP_EOL;
 
-            $buffer .= ' <td>' . $call . '</td>';
-            $buffer .= ' <td>' . $data['ct'] . '</td>';
-            $buffer .= ' <td>' . $data['wt'] . '</td>';
-            $buffer .= ' <td>' . ($data['ct'] * $data['wt']) . '</td>';
+            $buffer .= ' <td data-sort-value="' . $call . '">' . $call . '</td>';
+            $buffer .= ' <td data-sort-value="' . $data['ct'] . '">' . $data['ct'] . '</td>';
+            $buffer .= ' <td data-sort-value="' . $data['wt'] . '">' . $data['wt'] . '</td>';
+            $buffer .= ' <td data-sort-value="' . ($data['ct'] * $data['wt']) . '">' . ($data['ct'] * $data['wt']) . '</td>';
 
             $buffer .= PHP_EOL . ' </tr>' . PHP_EOL;
         }
