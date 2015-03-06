@@ -3,7 +3,17 @@ namespace TweeXhprof\View\Helper;
 
 class Xhprof
 {
-    public function __invoke(array $stack)
+    public function __invoke()
+    {
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return '';
+    }
+
+    public function render(array $stack)
     {
         $buffer = '';
         $buffer .= '<table class="table table-hover table-profiling stupidtable">' . PHP_EOL;

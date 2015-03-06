@@ -6,6 +6,14 @@ class XhprofTest extends PHPUnit_Framework_TestCase
 {
     public function testInvoke()
     {
+        $service = new Xhprof();
+        $content = $service->__invoke();
+        $this->assertEquals($service, $content);
+        $this->assertEquals('', $content->__toString());
+    }
+
+    public function testRenderSimple()
+    {
         $stack = array(
             'Zend\EventManager\SharedEventManager::attach==>array_key_exists' => array('ct' => 1, 'wt' => 1),
             'Zend\EventManager\EventManager::setIdentifiers==>is_array' => array('ct' => 2, 'wt' => 2),
@@ -13,7 +21,7 @@ class XhprofTest extends PHPUnit_Framework_TestCase
         );
 
         $service = new Xhprof();
-        $content = $service->__invoke($stack);
+        $content = $service->render($stack);
         foreach ($stack as $key => $data) {
             $this->assertContains($key, $content);
         }
