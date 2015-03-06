@@ -49,7 +49,11 @@ class Xhprof
 
         $gropped = array();
         foreach ($stack as $key => $data) {
-            list($caller, $destination) = explode('==>', $key);
+            $_items = explode('==>', $key);
+            if (count($_items) < 2) {
+                $_items[] = '';
+            }
+            list($caller, $destination) = $_items;
             if (!array_key_exists($caller, $gropped)) {
                 $gropped[$caller] = array();
             }
@@ -62,7 +66,9 @@ class Xhprof
         $buffer .= '<tr>' . PHP_EOL;
 
         $buffer .= '<th data-sort="string">Call</th>';
-        $buffer .= '<th> - </th>';
+        $buffer .= '<th> _call </th>';
+        $buffer .= '<th> _ct </th>';
+        $buffer .= '<th> _wt </th>';
         $buffer .= '<th data-sort="int">Count</th>';
         $buffer .= '<th data-sort="int">Time</th>';
         $buffer .= '<th data-sort="int">Overall</th>';
@@ -76,18 +82,26 @@ class Xhprof
                 'wt' => 0,
             );
 
-            $_buffer = '';
+            $_bufferDestination = '';
+            $_bufferCt = '';
+            $_bufferWt = '';
             foreach ($items as list($_destination, $_data)) {
-                $_buffer .= $destination . '<br />';
+                $_bufferDestination .= $_destination . '<br />';
+                $_bufferCt .= $_data['ct'] . '<br />';
+                $_bufferWt .= $_data['wt'] . '<br />';
                 $data['ct'] += $_data['ct'];
                 $data['wt'] += $_data['wt'];
             }
-            $_buffer = trim($_buffer, '<br />');
+            $_bufferDestination = trim($_bufferDestination, '<br />');
+            $_bufferCt = trim($_bufferCt, '<br />');
+            $_bufferWt = trim($_bufferWt, '<br />');
 
             $buffer .= ' <tr>' . PHP_EOL;
 
             $buffer .= ' <td data-sort-value="' . $call . '">' . $call . '</td>';
-            $buffer .= ' <td>' . $_buffer . '</td>';
+            $buffer .= ' <td>' . $_bufferDestination . '</td>';
+            $buffer .= ' <td>' . $_bufferCt . '</td>';
+            $buffer .= ' <td>' . $_bufferWt . '</td>';
             $buffer .= ' <td data-sort-value="' . $data['ct'] . '">' . $data['ct'] . '</td>';
             $buffer .= ' <td data-sort-value="' . $data['wt'] . '">' . $data['wt'] . '</td>';
             $buffer .= ' <td data-sort-value="' . ($data['ct'] * $data['wt']) . '">' . ($data['ct'] * $data['wt']) . '</td>';
