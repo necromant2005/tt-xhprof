@@ -113,4 +113,38 @@ class Xhprof
 
         return $buffer;
     }
+
+    public function renderSummary(array $stack)
+    {
+        $buffer = '';
+        $buffer .= '<table class="table table-hover table-profiling stupidtable">' . PHP_EOL;
+        $buffer .= '<thead>' . PHP_EOL;
+        $buffer .= '<tr>' . PHP_EOL;
+
+        $buffer .= '<th data-sort="string">Call</th>';
+        $buffer .= '<th data-sort="int">Count</th>';
+        $buffer .= '<th data-sort="int">Time</th>';
+        $buffer .= '<th data-sort="int">Overall</th>';
+
+        $buffer .=  PHP_EOL . '</tr>' . PHP_EOL;
+        $buffer .= '</thead>' . PHP_EOL;
+        $buffer .= '<tbody>' . PHP_EOL;
+
+        $sum = array('ct' => 0, 'wt' => 0);
+        foreach ($stack as $call => $data) {
+            $sum['ct'] = $sum['ct'] + $data['ct'];
+            $sum['wt'] = $sum['wt'] + $data['wt'];
+        }
+        $buffer .= ' <tr>' . PHP_EOL;
+
+        $buffer .= ' <td data-sort-value="Summary">Summary</td>';
+        $buffer .= ' <td data-sort-value="' . $sum['ct'] . '">' . $data['ct'] . '</td>';
+        $buffer .= ' <td data-sort-value="' . $sum['wt'] . '">' . $data['wt'] . '</td>';
+        $buffer .= ' <td data-sort-value="' . ($sum['ct'] * $sum['wt']) . '">' . ($sum['ct'] * $sum['wt']) . '</td>';
+
+        $buffer .= PHP_EOL . ' </tr>' . PHP_EOL;
+        $buffer .= '</tbody>' . PHP_EOL;
+        $buffer .= '</table>' . PHP_EOL;
+        return $buffer;
+    }
 }
