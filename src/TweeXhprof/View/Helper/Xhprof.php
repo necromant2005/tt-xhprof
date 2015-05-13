@@ -138,8 +138,8 @@ class Xhprof
         $buffer .= ' <tr>' . PHP_EOL;
 
         $buffer .= ' <td data-sort-value="Summary">Summary</td>';
-        $buffer .= ' <td data-sort-value="' . $sum['ct'] . '">' . $data['ct'] . '</td>';
-        $buffer .= ' <td data-sort-value="' . $sum['wt'] . '">' . $data['wt'] . '</td>';
+        $buffer .= ' <td data-sort-value="' . $sum['ct'] . '">' . $sum['ct'] . '</td>';
+        $buffer .= ' <td data-sort-value="' . $sum['wt'] . '">' . $sum['wt'] . '</td>';
         $buffer .= ' <td data-sort-value="' . ($sum['ct'] * $sum['wt']) . '">' . ($sum['ct'] * $sum['wt']) . '</td>';
 
         $buffer .= PHP_EOL . ' </tr>' . PHP_EOL;
